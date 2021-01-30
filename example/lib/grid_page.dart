@@ -7,33 +7,32 @@ class GridPageView extends StatefulWidget {
 }
 
 class _GridPageViewState extends State<GridPageView> {
-
-  List<StaggeredTileExtended> _listStaggeredTileExtended = const <StaggeredTileExtended>[
-    const StaggeredTileExtended.count(2, 2),
-    const StaggeredTileExtended.count(2, 1),
-    const StaggeredTileExtended.count(1, 2),
-    const StaggeredTileExtended.count(1, 1),
-    const StaggeredTileExtended.count(2, 2),
-    const StaggeredTileExtended.count(1, 2),
-    const StaggeredTileExtended.count(1, 1),
-    const StaggeredTileExtended.count(3, 1),
-    const StaggeredTileExtended.count(1, 1),
-    const StaggeredTileExtended.count(4, 1),
+  List<StaggeredTileExtended> _listStaggeredTileExtended =
+      const <StaggeredTileExtended>[
+    const StaggeredTileExtended.fit(2),
+    const StaggeredTileExtended.fit(1),
+    const StaggeredTileExtended.fit(2),
+    const StaggeredTileExtended.fit(1),
+    const StaggeredTileExtended.fit(2),
+    const StaggeredTileExtended.fit(2),
+    const StaggeredTileExtended.fit(1),
+    const StaggeredTileExtended.fit(1),
+    const StaggeredTileExtended.fit(1),
+    const StaggeredTileExtended.fit(1),
   ];
 
   List<Widget> _tiles = <Widget>[
-    _Example01Tile(Key("a"),Colors.green, Icons.widgets),
-    _Example01Tile(Key("b"),Colors.lightBlue, Icons.wifi),
-    _Example01Tile(Key("c"),Colors.amber, Icons.panorama_wide_angle),
-    _Example01Tile(Key("d"),Colors.brown, Icons.map),
-    _Example01Tile(Key("e"),Colors.deepOrange, Icons.send),
-    _Example01Tile(Key("f"),Colors.indigo, Icons.airline_seat_flat),
-    _Example01Tile(Key("g"),Colors.red, Icons.bluetooth),
-    _Example01Tile(Key("h"),Colors.pink, Icons.battery_alert),
-    _Example01Tile(Key("i"),Colors.purple, Icons.desktop_windows),
-    _Example01Tile(Key("j"),Colors.blue, Icons.radio),
+    _Example01Tile(Key("a"), Colors.green, Icons.widgets),
+    _Example01Tile(Key("b"), Colors.lightBlue, Icons.wifi),
+    _Example01Tile(Key("c"), Colors.amber, Icons.panorama_wide_angle),
+    _Example01Tile(Key("d"), Colors.brown, Icons.map),
+    _Example01Tile(Key("e"), Colors.deepOrange, Icons.send),
+    _Example01Tile(Key("f"), Colors.indigo, Icons.airline_seat_flat),
+    _Example01Tile(Key("g"), Colors.red, Icons.bluetooth),
+    _Example01Tile(Key("h"), Colors.pink, Icons.battery_alert),
+    _Example01Tile(Key("i"), Colors.purple, Icons.desktop_windows),
+    _Example01Tile(Key("j"), Colors.blue, Icons.radio),
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +57,8 @@ class _GridPageViewState extends State<GridPageView> {
 }
 
 class _Example01Tile extends StatelessWidget {
-  _Example01Tile(Key key, this.backgroundColor, this.iconData): super(key: key);
+  _Example01Tile(Key key, this.backgroundColor, this.iconData)
+      : super(key: key);
 
   final Color backgroundColor;
   final IconData iconData;
@@ -82,4 +82,3 @@ class _Example01Tile extends StatelessWidget {
     );
   }
 }
-
