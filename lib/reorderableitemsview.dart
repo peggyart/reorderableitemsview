@@ -495,10 +495,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
         List<dynamic> rejectedCandidates) {
       final Widget toWrapWithSemantics = wrapWithSemantics();
 
-      double mainAxisExtent = 0.0;
       double crossAxisExtent = 0.0;
-
-      BoxConstraints newConstraints = constraints;
 
       if (widget.isGrid &&
           _dragging == null &&
@@ -508,26 +505,9 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
         final double usableCrossAxisExtent = constraints.biggest.width;
         final double cellExtent = usableCrossAxisExtent / widget.crossAxisCount;
 
-        mainAxisExtent = tile.mainAxisExtent ??
-            (tile.mainAxisCellCount * cellExtent) +
-                (tile.mainAxisCellCount - 1);
-
-        crossAxisExtent = cellExtent * tile.crossAxisCellCount;
-
-        newConstraints = constraints.copyWith(
-          minWidth: crossAxisExtent,
-          maxWidth: crossAxisExtent,
-          minHeight: mainAxisExtent,
-          maxHeight: mainAxisExtent,
-        );
-      } else {
-        newConstraints = constraints.copyWith(
-          minWidth: 0.0,
-          maxWidth: constraints.maxWidth,
-          minHeight: 0.0,
-          maxHeight: constraints.maxHeight,
-        );
-      }
+        crossAxisExtent =
+            cellExtent * tile.crossAxisCellCount.toDouble() ?? 1.0;
+      } else {}
 
       // We build the draggable inside of a layout builder so that we can
       // constrain the size of the feedback dragging widget.
@@ -543,7 +523,6 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
                   : Container(
                       alignment: Alignment.topLeft,
                       // These constraints will limit the cross axis of the drawn widget.
-                      constraints: newConstraints,
                       child: Material(
                         elevation: 6.0,
                         child: toWrapWithSemantics,
@@ -576,14 +555,19 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
                   : Container(
                       alignment: Alignment.topLeft,
                       // These constraints will limit the cross axis of the drawn widget.
-                      constraints: newConstraints,
+                      width: crossAxisExtent,
+
                       child: Material(
                         elevation: 6.0,
                         child: toWrapWithSemantics,
                       ),
                     ),
               child: _dragging == toWrap.key
-                  ? const SizedBox()
+                  ? Container(
+                      width: crossAxisExtent,
+                      height: _draggingFeedbackSize?.height,
+                      child: toWrap,
+                    )
                   : toWrapWithSemantics,
               childWhenDragging: const SizedBox(),
               dragAnchor: DragAnchor.child,
@@ -717,7 +701,6 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
 }
 
 class StaggeredTileExtended extends StaggeredTile {
-  const StaggeredTileExtended.count(
-      int crossAxisCellCount, num mainAxisCellCount)
-      : super.count(crossAxisCellCount, mainAxisCellCount);
+  const StaggeredTileExtended.fit(int crossAxisCellCount)
+      : super.fit(crossAxisCellCount);
 }
