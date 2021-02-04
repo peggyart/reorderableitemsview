@@ -522,14 +522,18 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
                       context, index, toWrapWithSemantics)
                   : Container(
                       alignment: Alignment.topLeft,
-                      // These constraints will limit the cross axis of the drawn widget.
+                      width: crossAxisExtent,
                       child: Material(
                         elevation: 6.0,
                         child: toWrapWithSemantics,
                       ),
                     ),
               child: _dragging == toWrap.key
-                  ? const SizedBox()
+                  ? Container(
+                      width: crossAxisExtent,
+                      height: _draggingFeedbackSize?.height,
+                      child: toWrap,
+                    )
                   : toWrapWithSemantics,
               childWhenDragging: const SizedBox(),
               dragAnchor: DragAnchor.child,
