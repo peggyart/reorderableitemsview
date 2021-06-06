@@ -161,9 +161,7 @@ class _ReorderableItemsViewState extends State<ReorderableItemsView> {
   @override
   Widget build(BuildContext context) {
     return Overlay(
-        initialEntries: <OverlayEntry?>[
-          _listOverlayEntry,
-        ] as List<OverlayEntry>,
+        initialEntries: _listOverlayEntry != null ? [_listOverlayEntry!] : [],
         key: _overlayKey);
   }
 }
